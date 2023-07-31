@@ -1,10 +1,13 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ProductCatalogueService.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<ProductCatalogueServiceContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("ProductCatalogueServiceContext") ?? throw new InvalidOperationException("Connection string 'ProductCatalogueServiceContext' not found.")));
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
