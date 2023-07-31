@@ -10,6 +10,16 @@ builder.Services.AddDbContext<ProductCatalogueServiceContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen();
 
+// Add CORS policy allowing all origins, headers, and methods
+builder.Services.AddCors(options => {
+    options.AddPolicy("AllowAll",
+        b => b.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowAnyOrigin());
+
+});
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,6 +32,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors("AllowAll"); // Use the CORS policy globally
 
 app.MapControllers();
 
