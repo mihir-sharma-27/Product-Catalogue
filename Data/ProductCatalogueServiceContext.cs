@@ -20,5 +20,7 @@ namespace ProductCatalogueService.Data
 
         public DbSet<ProductCatalogueService.Models.Transaction>? Transaction { get; set; }
 
+
+
     }
 }
